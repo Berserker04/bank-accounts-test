@@ -8,6 +8,6 @@ public interface ClientUseCase {
     Mono<Client> createClient(Client client);
     Mono<Client> getClientById(Long id);
 //    Flux<Client> getAllClient();
-    Mono<Client> updateClient(Long id, Client client);
+    Mono<Integer> updateClient(Long id, Client client);
     boolean deleteClient(Long id);
 }
