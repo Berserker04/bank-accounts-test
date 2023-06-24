@@ -4,13 +4,13 @@ import com.bank.commons.ValidateData;
 
 public class InitialBalance {
     private String FIELD_NAME = "initialBalance";
-    private String value;
+    private Double value;
 
-    public InitialBalance(String value) {
-        if(ValidateData.string(value, FIELD_NAME)){
+    public InitialBalance(Double value) {
+        if(ValidateData.number(value, FIELD_NAME)){
             this.value = value;
         }
     }
 
-    public String getValue(){ return value; }
+    public Double getValue(){ return value; }
 }

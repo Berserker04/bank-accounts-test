@@ -4,13 +4,13 @@ import com.bank.commons.ValidateData;
 
 public class ClientId {
     private String FIELD_NAME = "clientId";
-    private String value;
+    private Long value;
 
-    public ClientId(String value) {
-        if(ValidateData.string(value, FIELD_NAME)){
+    public ClientId(Long value) {
+        if(ValidateData.number(value, FIELD_NAME)){
             this.value = value;
         }
     }
 
-    public String getValue(){ return value; }
+    public Long getValue(){ return value; }
 }

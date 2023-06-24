@@ -17,8 +17,8 @@ public class Client extends Person {
     private Password password;
     private State state;
 
-    public Client(Address address, CellPhone cellPhone, Gender gender, Id id, Identification adIdentification, Name name, ClientId clientId, Password password, State state) {
-        super(address, cellPhone, gender, adIdentification, name);
+    public Client(Address address, CellPhone cellPhone, Gender gender, Id id, Identification adIdentification, FullName fullName, ClientId clientId, Password password, State state) {
+        super(address, cellPhone, gender, adIdentification, fullName);
         this.id = id;
         this.clientId = clientId;
         this.password = password;

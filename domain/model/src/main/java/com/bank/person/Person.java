@@ -5,7 +5,7 @@ import com.bank.person.properties.Address;
 import com.bank.person.properties.Gender;
 import com.bank.person.properties.CellPhone;
 import com.bank.person.properties.Identification;
-import com.bank.person.properties.Name;
+import com.bank.person.properties.FullName;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,13 +16,13 @@ public class Person {
     private CellPhone cellPhone;
     private Gender gender;
     private Identification adIdentification;
-    private Name name;
+    private FullName fullName;
 
-    public Person(Address address, CellPhone cellPhone, Gender gender, Identification adIdentification, Name name) {
+    public Person(Address address, CellPhone cellPhone, Gender gender, Identification adIdentification, FullName fullName) {
         this.address = address;
         this.cellPhone = cellPhone;
         this.gender = gender;
         this.adIdentification = adIdentification;
-        this.name = name;
+        this.fullName = fullName;
     }
 }

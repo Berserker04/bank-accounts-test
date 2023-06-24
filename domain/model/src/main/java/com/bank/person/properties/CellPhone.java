@@ -4,13 +4,13 @@ import com.bank.commons.ValidateData;
 
 public class CellPhone {
     private String FIELD_NAME = "cellPhone";
-    private String value;
+    private Long value;
 
-    public CellPhone(String value) {
-        if(ValidateData.string(value, FIELD_NAME)){
+    public CellPhone(Long value) {
+        if(ValidateData.number(value, FIELD_NAME)){
             this.value = value;
         }
     }
 
-    public String getValue(){ return value; }
+    public Long getValue(){ return value; }
 }

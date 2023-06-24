@@ -2,11 +2,11 @@ package com.bank.person.properties;
 
 import com.bank.commons.ValidateData;
 
-public class Name {
-    private String FIELD_NAME = "name";
+public class FullName {
+    private String FIELD_NAME = "fullName";
     private String value;
 
-    public Name(String value) {
+    public FullName(String value) {
         if(ValidateData.string(value, FIELD_NAME)){
             this.value = value;
         }

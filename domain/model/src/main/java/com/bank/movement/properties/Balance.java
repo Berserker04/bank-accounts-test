@@ -4,13 +4,13 @@ import com.bank.commons.ValidateData;
 
 public class Balance {
     private String FIELD_NAME = "balance";
-    private String value;
+    private Double value;
 
-    public Balance(String value) {
-        if(ValidateData.string(value, FIELD_NAME)){
+    public Balance(Double value) {
+        if(ValidateData.number(value, FIELD_NAME)){
             this.value = value;
         }
     }
 
-    public String getValue(){ return value; }
+    public Double getValue(){ return value; }
 }
