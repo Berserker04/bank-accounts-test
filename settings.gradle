@@ -1,12 +1,13 @@
 rootProject.name = 'accounts'
 
-//include 'infrastructure:driven-adapters:jpa-repository'
-//findProject(':infrastructure:driven-adapters:jpa-repository')?.name = 'jpa-repository'
-
 include 'infrastructure:entry-points:reactive-web'
 findProject(':infrastructure:entry-points:reactive-web')?.name = 'reactive-web'
+
 include 'aplication:use-case'
 findProject(':aplication:use-case')?.name = 'use-case'
+
 include 'domain:model'
 findProject(':domain:model')?.name = 'model'
+include 'infrastructure:driven-adapters:jpa-repository'
+findProject(':infrastructure:driven-adapters:jpa-repository')?.name = 'jpa-repository'
 

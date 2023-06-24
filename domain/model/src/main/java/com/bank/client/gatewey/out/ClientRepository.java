@@ -8,6 +8,6 @@ public interface ClientRepository {
     Mono<Client> save(Client client);
     Mono<Client> findById(Long id);
 //    Flux<Client> findAll();
-    Mono<Integer> update(Client task);
-    boolean deleteById(Long id);
+    Mono<Client> update(Client task);
+    Mono<Boolean> deleteById(Long id);
 }

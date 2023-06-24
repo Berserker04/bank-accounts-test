@@ -22,12 +22,12 @@ public class ClientUseCaseImp implements ClientUseCase {
     }
 
     @Override
-    public Mono<Integer> updateClient(Long id, Client client) {
+    public Mono<Client> updateClient(Long id, Client client) {
         return clientRepository.update(client);
     }
 
     @Override
-    public boolean deleteClient(Long id) {
+    public Mono<Boolean> deleteClient(Long id) {
         return clientRepository.deleteById(id);
     }
 }

@@ -15,14 +15,14 @@ public class Person {
     private Address address;
     private CellPhone cellPhone;
     private Gender gender;
-    private Identification adIdentification;
+    private Identification identification;
     private FullName fullName;
 
-    public Person(Address address, CellPhone cellPhone, Gender gender, Identification adIdentification, FullName fullName) {
+    public Person(Address address, CellPhone cellPhone, Gender gender, Identification identification, FullName fullName) {
         this.address = address;
         this.cellPhone = cellPhone;
         this.gender = gender;
-        this.adIdentification = adIdentification;
+        this.identification = identification;
         this.fullName = fullName;
     }
 }
