@@ -5,7 +5,7 @@ import com.bank.commons.ValidateData;
 import java.time.LocalDate;
 
 public class Date {
-    private String FIELD_NAME = "date";
+    private static String FIELD_NAME = "date";
     private LocalDate value;
 
     public Date(LocalDate value) {

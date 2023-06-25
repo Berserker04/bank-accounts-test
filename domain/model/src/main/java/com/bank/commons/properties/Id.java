@@ -3,7 +3,7 @@ package com.bank.commons.properties;
 import com.bank.commons.ValidateData;
 
 public class Id {
-    private String FIELD_NAME = "id";
+    private static String FIELD_NAME = "id";
     private Long value;
 
     public Id(Long value) {

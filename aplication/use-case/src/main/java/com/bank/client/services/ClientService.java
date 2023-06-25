@@ -2,6 +2,7 @@ package com.bank.client.services;
 
 import com.bank.client.Client;
 import com.bank.client.gatewey.in.ClientUseCase;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
 
@@ -16,6 +17,7 @@ public class ClientService implements ClientUseCase {
 
     @Override
     public Mono<Client> createClient(Client client) {
+        System.out.println("passsssssssssssssssse por aquí");
         return clientUseCase.createClient(client);
     }
 

@@ -3,7 +3,7 @@ package com.bank.account.properties;
 import com.bank.commons.ValidateData;
 
 public class AccountType {
-    private String FIELD_NAME = "accountType";
+    private static String FIELD_NAME = "accountType";
     private String value;
 
     public AccountType(String value) {

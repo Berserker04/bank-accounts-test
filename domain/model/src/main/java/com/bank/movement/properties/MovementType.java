@@ -3,7 +3,7 @@ package com.bank.movement.properties;
 import com.bank.commons.ValidateData;
 
 public class MovementType {
-    private String FIELD_NAME = "movementType";
+    private static String FIELD_NAME = "movementType";
     private String value;
 
     public MovementType(String value) {

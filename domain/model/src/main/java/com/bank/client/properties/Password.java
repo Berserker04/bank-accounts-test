@@ -3,7 +3,7 @@ package com.bank.client.properties;
 import com.bank.commons.ValidateData;
 
 public class Password {
-    private String FIELD_NAME = "password";
+    private static String FIELD_NAME = "password";
     private String value;
 
     public Password(String value) {

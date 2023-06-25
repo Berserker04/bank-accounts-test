@@ -3,7 +3,7 @@ package com.bank.person.properties;
 import com.bank.commons.ValidateData;
 
 public class CellPhone {
-    private String FIELD_NAME = "cellPhone";
+    private static String FIELD_NAME = "cellPhone";
     private Long value;
 
     public CellPhone(Long value) {

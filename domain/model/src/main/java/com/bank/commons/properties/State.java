@@ -3,7 +3,7 @@ package com.bank.commons.properties;
 import com.bank.commons.ValidateData;
 
 public class State {
-    private String FIELD_NAME = "state";
+    private static String FIELD_NAME = "state";
     private String value;
 
     public State(String value) {

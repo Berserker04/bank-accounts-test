@@ -3,7 +3,7 @@ package com.bank.movement.properties;
 import com.bank.commons.ValidateData;
 
 public class Value {
-    private String FIELD_NAME = "value";
+    private static String FIELD_NAME = "value";
     private Double value;
 
     public Value(Double value) {
