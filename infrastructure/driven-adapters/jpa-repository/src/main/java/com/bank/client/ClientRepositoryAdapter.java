@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Mono;
 
-@Repository
+@Component
 @RequiredArgsConstructor
 public class ClientRepositoryAdapter implements ClientRepository {
 
@@ -16,23 +16,39 @@ public class ClientRepositoryAdapter implements ClientRepository {
     private final ClientDataRepository repository;
     @Override
     public Mono<Client> save(Client client) {
-        System.out.println("asta acá tambein <3");
-        ClientData clientData = mapper.fromDomainModel(client);
-        return Mono.just(client);
+        ClientData clientData = mapper.toNewEntityData(client);
+        Mono<ClientData> savedData = repository.save(clientData);
+        return savedData.map(d->mapper.toDomainModel(d));
     }
 
     @Override
     public Mono<Client> findById(Long id) {
-        return Mono.empty();
+        return repository.findById(id)
+                .map(d->mapper.toDomainModel(d));
     }
 
     @Override
     public Mono<Client> update(Client client) {
-        return Mono.empty();
+        return repository.existsById(client.getId().getValue())
+                .flatMap(exists -> {
+                    if(exists){
+                        ClientData clientData =  mapper.toNewEntityData(client);
+                        Mono<ClientData> updatedClientData = repository.save(clientData);
+                        return updatedClientData.map(d->mapper.toDomainModel(d));
+                    }
+                    return Mono.empty();
+                });
     }
 
     @Override
     public Mono<Boolean> deleteById(Long id) {
-        return Mono.empty();
+        return repository.existsById(id)
+                .flatMap(exists -> {
+                    if(exists){
+                        repository.deleteById(id);
+                        return Mono.just(true);
+                    }
+                    return Mono.just(false);
+                });
     }
 }

@@ -7,9 +7,22 @@ import com.bank.commons.properties.State;
 import com.bank.person.properties.*;
 
 public class ClientMapper {
-    public static ClientData fromDomainModel(Client client) {
+    public static ClientData toEntityData(Client client) {
         return ClientData.builder()
                 .id(client.getId().getValue())
+                .clientId(client.getClientId().getValue())
+                .fullName(client.getFullName().getValue())
+                .identification(client.getIdentification().getValue())
+                .cellPhone(client.getCellPhone().getValue())
+                .password(client.getPassword().getValue())
+                .address(client.getAddress().getValue())
+                .gender(client.getGender().getValue())
+                .state(client.getState().getValue())
+                .build();
+    }
+
+    public static ClientData toNewEntityData(Client client) {
+        return ClientData.builder()
                 .clientId(client.getClientId().getValue())
                 .fullName(client.getFullName().getValue())
                 .identification(client.getIdentification().getValue())

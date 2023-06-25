@@ -4,9 +4,10 @@ import com.bank.client.Client;
 import com.bank.client.gatewey.in.ClientUseCase;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
-@Component
+@Service
 public class ClientService implements ClientUseCase {
 
     private final ClientUseCase clientUseCase;

@@ -26,4 +26,9 @@ public class Account {
         System.out.println("test 123");
         return clientService.createClient(client);
     }
+
+    @GetMapping("/{id}")
+    public Mono<Client> listAllClient(@PathVariable Long id) {
+        return clientService.getClientById(id);
+    }
 }
