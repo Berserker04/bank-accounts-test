@@ -2,10 +2,7 @@ package com.bank.client;
 
 import com.bank.client.gatewey.out.ClientRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Mono;
 
 @Component
@@ -17,8 +14,8 @@ public class ClientRepositoryAdapter implements ClientRepository {
     @Override
     public Mono<Client> save(Client client) {
         ClientData clientData = mapper.toNewEntityData(client);
-        Mono<ClientData> savedData = repository.save(clientData);
-        return savedData.map(d->mapper.toDomainModel(d));
+        return repository.save(clientData)
+            .map(d->mapper.toDomainModel(d));
     }
 
     @Override
@@ -32,9 +29,9 @@ public class ClientRepositoryAdapter implements ClientRepository {
         return repository.existsById(client.getId().getValue())
                 .flatMap(exists -> {
                     if(exists){
-                        ClientData clientData =  mapper.toNewEntityData(client);
-                        Mono<ClientData> updatedClientData = repository.save(clientData);
-                        return updatedClientData.map(d->mapper.toDomainModel(d));
+                        ClientData clientData =  mapper.toEntityData(client);
+                        return repository.save(clientData)
+                                .map(d->mapper.toDomainModel(d));
                     }
                     return Mono.empty();
                 });
@@ -45,7 +42,7 @@ public class ClientRepositoryAdapter implements ClientRepository {
         return repository.existsById(id)
                 .flatMap(exists -> {
                     if(exists){
-                        repository.deleteById(id);
+                        repository.deleteById(id).subscribe();
                         return Mono.just(true);
                     }
                     return Mono.just(false);

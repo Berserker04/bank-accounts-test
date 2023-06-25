@@ -2,12 +2,11 @@ package com.bank.account;
 
 import com.bank.client.Client;
 import com.bank.client.services.ClientService;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
 @RestController
-@RequestMapping("/api/client")
+@RequestMapping("/api/v1/account")
 public class Account {
 
     private ClientService clientService;
