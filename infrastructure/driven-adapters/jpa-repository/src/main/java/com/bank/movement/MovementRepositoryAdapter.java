@@ -1,36 +1,37 @@
-package com.bank.client;
+package com.bank.movement;
 
-import com.bank.client.gatewey.out.ClientRepository;
+import com.bank.movement.gateway.out.MovementRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
 
 @Component
 @RequiredArgsConstructor
-public class ClientRepositoryAdapter implements ClientRepository {
+public class MovementRepositoryAdapter implements MovementRepository {
 
-    private final ClientMapper mapper;
-    private final ClientDataRepository repository;
+    private final MovementMapper mapper;
+    private final MovementDataRepository repository;
+
     @Override
-    public Mono<Client> save(Client client) {
-        return Mono.just(client)
+    public Mono<Movement> save(Movement movement) {
+        return Mono.just(movement)
                 .flatMap(mapper::toNewEntityData)
                 .flatMap(repository::save)
                 .map(mapper::toDomainModel);
     }
 
     @Override
-    public Mono<Client> findById(Long id) {
+    public Mono<Movement> findById(Long id) {
         return repository.findById(id)
                 .map(mapper::toDomainModel);
     }
 
     @Override
-    public Mono<Client> update(Client client) {
-        return repository.existsById(client.getId().getValue())
+    public Mono<Movement> update(Movement movement) {
+        return repository.existsById(movement.getId().getValue())
                 .flatMap(exists -> {
                     if(exists){
-                        return Mono.just(client)
+                        return Mono.just(movement)
                                 .flatMap(mapper::toEntityData)
                                 .flatMap(repository::save)
                                 .map(mapper::toDomainModel);

@@ -2,18 +2,15 @@ package com.bank.client;
 
 import com.bank.client.gatewey.in.ClientUseCase;
 import com.bank.client.gatewey.out.ClientRepository;
+import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Mono;
 
+@RequiredArgsConstructor
 public class ClientUseCaseImp implements ClientUseCase {
     private final ClientRepository clientRepository;
 
-    public ClientUseCaseImp(ClientRepository clientRepository) {
-        this.clientRepository = clientRepository;
-    }
-
     @Override
     public Mono<Client> createClient(Client client) {
-        System.out.println("test 456");
         return clientRepository.save(client);
     }
 
@@ -23,7 +20,7 @@ public class ClientUseCaseImp implements ClientUseCase {
     }
 
     @Override
-    public Mono<Client> updateClient(Long id, Client client) {
+    public Mono<Client> updateClient(Client client) {
         return clientRepository.update(client);
     }
 

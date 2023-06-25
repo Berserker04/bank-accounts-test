@@ -1,21 +1,18 @@
 package com.bank.client;
 
 import com.bank.client.services.ClientService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
+@RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/v1/client")
+@RequestMapping("/api/v1/clients")
 public class ClientController {
-    private ClientService clientService;
-
-    public ClientController(ClientService clientService) {
-        this.clientService = clientService;
-    }
+    private final ClientService clientService;
 
     @PostMapping()
     public Mono<Client> createClient(@RequestBody Client client) {
-        System.out.println("test 123");
         return clientService.createClient(client);
     }
 
@@ -24,9 +21,9 @@ public class ClientController {
         return clientService.getClientById(id);
     }
 
-    @PutMapping("/{id}")
-    public Mono<Client> updateClient(@PathVariable Long id, @RequestBody Client client) {
-        return clientService.updateClient(id, client);
+    @PutMapping()
+    public Mono<Client> updateClient(@RequestBody Client client) {
+        return clientService.updateClient(client);
     }
 
     @DeleteMapping("/{id}")

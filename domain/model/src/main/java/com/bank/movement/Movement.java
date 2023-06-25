@@ -5,7 +5,11 @@ import com.bank.movement.properties.Balance;
 import com.bank.movement.properties.Date;
 import com.bank.movement.properties.MovementType;
 import com.bank.movement.properties.Value;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 public class Movement {
     private Id id;
     private Date date;

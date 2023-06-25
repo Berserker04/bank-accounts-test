@@ -2,23 +2,18 @@ package com.bank.client.services;
 
 import com.bank.client.Client;
 import com.bank.client.gatewey.in.ClientUseCase;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.stereotype.Component;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
 @Service
+@RequiredArgsConstructor
 public class ClientService implements ClientUseCase {
 
     private final ClientUseCase clientUseCase;
 
-    public ClientService(ClientUseCase clientUseCase) {
-        this.clientUseCase = clientUseCase;
-    }
-
     @Override
     public Mono<Client> createClient(Client client) {
-        System.out.println("passsssssssssssssssse por aquí");
         return clientUseCase.createClient(client);
     }
 
@@ -28,8 +23,8 @@ public class ClientService implements ClientUseCase {
     }
 
     @Override
-    public Mono<Client> updateClient(Long id, Client client) {
-        return clientUseCase.updateClient(id, client);
+    public Mono<Client> updateClient(Client client) {
+        return clientUseCase.updateClient(client);
     }
 
     @Override

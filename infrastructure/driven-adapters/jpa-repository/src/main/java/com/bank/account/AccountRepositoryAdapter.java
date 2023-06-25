@@ -1,36 +1,37 @@
-package com.bank.client;
+package com.bank.account;
 
-import com.bank.client.gatewey.out.ClientRepository;
+import com.bank.account.gateway.out.AccountRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
 
 @Component
 @RequiredArgsConstructor
-public class ClientRepositoryAdapter implements ClientRepository {
+public class AccountRepositoryAdapter implements AccountRepository {
 
-    private final ClientMapper mapper;
-    private final ClientDataRepository repository;
+    private final AccountMapper mapper;
+    private final AccountDataRepository repository;
+
     @Override
-    public Mono<Client> save(Client client) {
-        return Mono.just(client)
+    public Mono<Account> save(Account account) {
+        return Mono.just(account)
                 .flatMap(mapper::toNewEntityData)
                 .flatMap(repository::save)
                 .map(mapper::toDomainModel);
     }
 
     @Override
-    public Mono<Client> findById(Long id) {
+    public Mono<Account> findById(Long id) {
         return repository.findById(id)
                 .map(mapper::toDomainModel);
     }
 
     @Override
-    public Mono<Client> update(Client client) {
-        return repository.existsById(client.getId().getValue())
+    public Mono<Account> update(Account account) {
+        return repository.existsById(account.getId().getValue())
                 .flatMap(exists -> {
                     if(exists){
-                        return Mono.just(client)
+                        return Mono.just(account)
                                 .flatMap(mapper::toEntityData)
                                 .flatMap(repository::save)
                                 .map(mapper::toDomainModel);
