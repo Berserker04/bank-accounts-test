@@ -18,3 +18,7 @@ spring:
     password:
     pool:
       enabled: true
+
+  jwt:
+    # 1EEA2BBAB3243923A9B9F556DC249DA7D2521CA81CBA8
+    secret: "MUVFQTJCQkFCMzI0MzkyM0E5QjlGNTU2REMyNDlEQTdEMjUyMUNBODFDQkE4"
