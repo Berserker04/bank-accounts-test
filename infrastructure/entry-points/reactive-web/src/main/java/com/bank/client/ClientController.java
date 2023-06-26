@@ -28,9 +28,6 @@ public class ClientController {
         try {
             SecurityContextHolder.getContext().getAuthentication();
 
-//            ReactiveSecurityContextHolder.getContext()
-//                    .map(securityContext -> securityContext.getAuthentication());
-
             Client result = clientService.createClient(client).block();
 
             if(result == null) return ResponseHandler.success("No se puedo registrar el client");
