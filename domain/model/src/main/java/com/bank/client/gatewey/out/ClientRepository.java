@@ -5,7 +5,8 @@ import reactor.core.publisher.Mono;
 
 public interface ClientRepository {
     Mono<Client> save(Client client);
+    Mono<Client> findById(Long id);
     Mono<Client> findByClientId(Long clientId);
-    Mono<Client> update(Client client);
-    Mono<Boolean> deleteById(Long id);
+    Mono<Integer> update(Client client);
+    Mono<Boolean> deleteById(Long clientId);
 }

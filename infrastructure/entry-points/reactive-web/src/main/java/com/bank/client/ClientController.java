@@ -10,10 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-import reactor.core.publisher.Mono;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @RequiredArgsConstructor
 @RestController
@@ -38,45 +34,49 @@ public class ClientController {
         }
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<?> getClientById(@PathVariable Long id) {
-        SecurityContextHolder.getContext().getAuthentication();
+    @GetMapping("/{clientId}")
+    public ResponseEntity<?> getClientById(@PathVariable Long clientId) {
+        try {
+            SecurityContextHolder.getContext().getAuthentication();
 
-        Map<String, ClientData> mensaje = new HashMap<>();
-        mensaje.put("body", mapper.toEntityData(clientService.getClientByClientId(id).block()).block());
+            Client result = clientService.getClientByClientId(clientId).block();
 
-        return ResponseEntity.ok(mensaje);
-
-
-        //        try {
-////            SecurityContextHolder.getContext().getAuthentication();
-//
-//            ReactiveSecurityContextHolder.getContext()
-//                    .map(securityContext -> securityContext.getAuthentication());
-//
-//            Client xd =clientService.getClientById(id).block();
-//
-//            return clientService.getClientById(id)
-//                .flatMap(mapper::toEntityData)
-//                .map(client -> {
-//                if(client == null){
-//                    return ResponseHandler.success("Cliente " + id +" no existe");
-//                }
-//                return ResponseHandler
-//                        .success("Success", client);
-//            });
-//        }catch (Exception e){
-//            return Mono.just(ResponseHandler.error("Internal server error"));
-//        }
+            if(result == null) return ResponseHandler.success("Client no registrado");
+            return ResponseHandler.success("Success", mapper.toEntityData(result).block());
+        }catch (Exception e){
+            logger.info(e.getMessage());
+            return ResponseHandler.error("Internal server error");
+        }
     }
 
-    @PutMapping()
-    public Mono<Client> updateClient(@RequestBody Client client) {
-        return clientService.updateClient(client);
+    @PatchMapping()
+    public ResponseEntity<?> updateClient(@RequestBody Client client) {
+        try {
+            SecurityContextHolder.getContext().getAuthentication();
+
+            Client result = clientService.updateClient(client).block();
+
+            if(result == null) return ResponseHandler.success("No se puedo actualizar el cliente");
+            return ResponseHandler.success("Success", mapper.toEntityData(result).block());
+        }catch (Exception e){
+            logger.info(e.getMessage());
+            return ResponseHandler.error("Internal server error");
+        }
     }
 
-    @DeleteMapping("/{id}")
-    public Mono<Boolean> deleteClient(@PathVariable Long id) {
-        return clientService.deleteClient(id);
+    @DeleteMapping("/{clientId}")
+    public ResponseEntity<?> deleteClient(@PathVariable Long clientId) {
+        try {
+            SecurityContextHolder.getContext().getAuthentication();
+
+            Boolean result = clientService.deleteClient(clientId).block();
+
+            if(!result) return ResponseHandler.success("No se puedo eliminar el cliente");
+            return ResponseHandler.success("Success");
+        }catch (Exception e){
+            logger.info(e.getMessage());
+            return ResponseHandler.error("Internal server error");
+        }
+
     }
 }

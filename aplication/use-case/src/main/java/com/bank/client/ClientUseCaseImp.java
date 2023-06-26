@@ -36,12 +36,20 @@ public class ClientUseCaseImp implements ClientUseCase {
 
     @Override
     public Mono<Client> updateClient(Client client) {
-        return clientRepository.update(client);
+        String encodePassword = encryptPassword(client.getPassword().getValue());
+        client.setPassword(new Password(encodePassword));
+        return clientRepository.update(client)
+                .flatMap(result-> {
+                    if(result >= 1){
+                        return clientRepository.findById(client.getId().getValue());
+                    }
+                    return null;
+                });
     }
 
     @Override
-    public Mono<Boolean> deleteClient(Long id) {
-        return clientRepository.deleteById(id);
+    public Mono<Boolean> deleteClient(Long clientId) {
+        return clientRepository.deleteById(clientId);
     }
 
     public String encryptPassword(String password) {

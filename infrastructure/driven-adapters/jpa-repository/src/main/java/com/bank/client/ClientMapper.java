@@ -38,6 +38,16 @@ public class ClientMapper {
                 .build());
     }
 
+    public final Mono<ClientData> toUpdateEntityData(Client client) {
+        return Mono.just(ClientData.builder()
+                .id(client.getId().getValue())
+                .cellPhone(client.getCellPhone().getValue())
+                .password(client.getPassword().getValue())
+                .address(client.getAddress().getValue())
+                .gender(client.getGender().getValue())
+                .build());
+    }
+
     public final Client toDomainModel(ClientData clientData) {
         return new Client(
                 new Address(clientData.getAddress()),
