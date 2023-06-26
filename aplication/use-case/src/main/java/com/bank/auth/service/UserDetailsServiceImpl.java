@@ -1,52 +1,32 @@
 package com.bank.auth.service;
 
+import com.bank.client.Client;
+import com.bank.client.gatewey.out.ClientRepository;
+import com.bank.client.properties.ClientId;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Set;
-
 @Service
+@RequiredArgsConstructor
 public class UserDetailsServiceImpl implements UserDetailsService {
+    private final ClientRepository clientRepository;
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        var usuario = getById(username);
+    public UserDetails loadUserByUsername(String clientId) throws UsernameNotFoundException {
 
-        if (usuario == null) {
-            throw new UsernameNotFoundException(username);
+        Client user = clientRepository.findByClientId(new ClientId(clientId).getValue()).block();
+
+        if (user == null) {
+            throw new UsernameNotFoundException(clientId);
         }
         return User
-                .withUsername(username)
-                .password(usuario.password())
-                .roles(usuario.roles().toArray(new String[0]))
+                .withUsername(clientId)
+                .password(user.getPassword().getValue())
+                .roles(user.getRole().getValue())
                 .build();
     }
 
-    public record Usuario(String username, String password, Set<String> roles) {};
-
-    public static Usuario getById(String username) {
-        // "secreto" => [BCrypt] => "$2a$10$56VCAiApLO8NQYeOPiu2De/EBC5RWrTZvLl7uoeC3r7iXinRR1iiq"
-        var password = "$2a$10$56VCAiApLO8NQYeOPiu2De/EBC5RWrTZvLl7uoeC3r7iXinRR1iiq";
-        Usuario juan = new Usuario(
-                "jcabelloc",
-                password,
-                Set.of("USER")
-        );
-
-        Usuario maria = new Usuario(
-                "mlopez",
-                password,
-                Set.of("ADMIN")
-        );
-        var usuarios = List.of(juan, maria);
-
-        return usuarios
-                .stream()
-                .filter(e -> e.username().equals(username))
-                .findFirst()
-                .orElse(null);
-    }
 }

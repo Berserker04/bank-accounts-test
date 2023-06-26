@@ -11,12 +11,12 @@ public class AuthenticationReq implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private String usuario;
+    private String clientId;
 
-    private String clave;
+    private String password;
 
-    public AuthenticationReq(String usuario, String clave) {
-        this.usuario = usuario;
-        this.clave = clave;
+    public AuthenticationReq(String clientId, String password) {
+        this.clientId = clientId;
+        this.password = password;
     }
 }

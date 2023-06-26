@@ -12,5 +12,11 @@ public class ClientId {
         }
     }
 
+    public ClientId(String value) {
+        if(ValidateData.string(value, FIELD_NAME)){
+            this.value = Long.valueOf(value);
+        }
+    }
+
     public Long getValue(){ return value; }
 }

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.ReactiveSecurityContextHolder;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -34,10 +35,12 @@ public class DemoRest {
     public ResponseEntity<?> getMensaje() {
         logger.info("Obteniendo el mensaje");
 
-        var auth =  SecurityContextHolder.getContext().getAuthentication();
-        logger.info("Datos del Usuario: {}", auth.getPrincipal());
-        logger.info("Datos de los Roles {}", auth.getAuthorities());
-        logger.info("Esta autenticado {}", auth.isAuthenticated());
+        ReactiveSecurityContextHolder.getContext()
+                    .map(securityContext -> securityContext.getAuthentication());
+
+//        logger.info("Datos del Usuario: {}", auth.getPrincipal());
+//        logger.info("Datos de los Roles {}", auth.getAuthorities());
+//        logger.info("Esta autenticado {}", auth.isAuthenticated());
 
         Map<String, String> mensaje = new HashMap<>();
         mensaje.put("contenido", "Hola Peru");
@@ -57,7 +60,7 @@ public class DemoRest {
         return ResponseEntity.ok(mensaje);
     }
 
-    @GetMapping("/publico")
+    @GetMapping("/public")
     public ResponseEntity<?> getMensajePublico() {
         var auth =  SecurityContextHolder.getContext().getAuthentication();
         logger.info("Datos del Usuario: {}", auth.getPrincipal());
@@ -71,16 +74,16 @@ public class DemoRest {
 
 
 
-    @PostMapping("/publico/authenticate")
+    @PostMapping("/public/authenticate")
     public ResponseEntity<TokenInfo> authenticate(@RequestBody AuthenticationReq authenticationReq) {
-        logger.info("Autenticando al usuario {}", authenticationReq.getUsuario());
+        logger.info("Autenticando al usuario {}", authenticationReq.getClientId());
 
         authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(authenticationReq.getUsuario(),
-                        authenticationReq.getClave()));
+                new UsernamePasswordAuthenticationToken(authenticationReq.getClientId(),
+                        authenticationReq.getPassword()));
 
         final UserDetails userDetails = usuarioDetailsService.loadUserByUsername(
-                authenticationReq.getUsuario());
+                authenticationReq.getClientId());
 
         final String jwt = jwtUtilService.generateToken(userDetails);
 

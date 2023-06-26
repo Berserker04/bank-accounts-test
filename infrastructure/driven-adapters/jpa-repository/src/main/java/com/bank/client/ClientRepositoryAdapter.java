@@ -20,8 +20,8 @@ public class ClientRepositoryAdapter implements ClientRepository {
     }
 
     @Override
-    public Mono<Client> findById(Long id) {
-        return repository.findById(id)
+    public Mono<Client> findByClientId(Long client) {
+        return repository.findByClientId(client)
                 .map(mapper::toDomainModel);
     }
 

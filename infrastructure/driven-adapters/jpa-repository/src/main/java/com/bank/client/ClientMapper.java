@@ -2,6 +2,7 @@ package com.bank.client;
 
 import com.bank.client.properties.ClientId;
 import com.bank.client.properties.Password;
+import com.bank.client.properties.Role;
 import com.bank.commons.properties.Id;
 import com.bank.commons.properties.State;
 import com.bank.person.properties.*;
@@ -18,6 +19,7 @@ public class ClientMapper {
                 .password(client.getPassword().getValue())
                 .address(client.getAddress().getValue())
                 .gender(client.getGender().getValue())
+                .role(client.getRole().getValue())
                 .state(client.getState().getValue())
                 .build());
     }
@@ -31,6 +33,7 @@ public class ClientMapper {
                 .password(client.getPassword().getValue())
                 .address(client.getAddress().getValue())
                 .gender(client.getGender().getValue())
+                .role(client.getRole().getValue())
                 .state(client.getState().getValue())
                 .build());
     }
@@ -45,6 +48,7 @@ public class ClientMapper {
                 new FullName(clientData.getFullName()),
                 new ClientId(clientData.getClientId()),
                 new Password(clientData.getPassword()),
+                new Role(clientData.getRole()),
                 new State(clientData.getState()));
     }
 }

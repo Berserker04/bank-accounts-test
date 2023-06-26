@@ -4,6 +4,7 @@ import com.bank.auth.filter.JwtRequestFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -23,11 +24,16 @@ public class WebSecurityConfig {
     private JwtRequestFilter jwtRequestFilter;
     @Bean
     SecurityFilterChain web(HttpSecurity http) throws Exception {
-        http.csrf().disable()
+        http.csrf(csrfConfig -> csrfConfig.disable())
             .authorizeHttpRequests((authorize) -> authorize
-                    .requestMatchers("/publico/**").permitAll()
-                    .requestMatchers("/api/v1/**").authenticated()
+                    .requestMatchers("/public/**").permitAll()
+                    .requestMatchers("/api/v1/auth/**").permitAll()
+                    .requestMatchers("/api/v1/clients/**").authenticated()
+                    .requestMatchers("/api/v1/accounts/**").authenticated()
+                    .requestMatchers("/api/v1/movements/**").authenticated()
+                    .requestMatchers("/api/v1/reports/**").authenticated()
                     .requestMatchers("/admin/**").hasRole("ADMIN")
+                    .requestMatchers(HttpMethod.POST, "/api/v1/clients").hasRole("ADMIN")
                     .anyRequest().authenticated()
             )
             .cors(withDefaults())
@@ -35,51 +41,13 @@ public class WebSecurityConfig {
             .sessionManagement((session) -> session
                     .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             );
-        ;
-    /*
-    http
-        .formLogin(withDefaults()); // (1)
-    http
-        .httpBasic(withDefaults()); // (1)
-     */
         return http.build();
     }
-  /* (1) By default, Spring Security form login/http basic auth are enabled.
-  However, as soon as any servlet-based configuration is provided,
-  form based login or/and http basic auth must be explicitly provided.
-
-  * (2) If our stateless API uses token-based authentication, such as JWT,
-    we don't need CSRF protection
-  */
-
-    // Autenticacion con UserDetailsService
-  /*
-  @Bean
-  UserDetailsServiceImpl userDetailsService() {
-    return new UserDetailsServiceImpl();
-  }*/
 
     @Bean
     PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
-  /* Autenticacion en Memoria
-  @Bean
-  public UserDetailsService users() {
-    UserDetails user = User.builder()
-        .username("user")
-        .password("{bcrypt}$2a$10$GRLdNijSQMUvl/au9ofL.eDwmoohzzS7.rmNSJZ.0FxO/BTk76klW")
-        .roles("USER")
-        .build();
-    UserDetails admin = User.builder()
-        .username("admin")
-        .password("{bcrypt}$2a$10$GRLdNijSQMUvl/au9ofL.eDwmoohzzS7.rmNSJZ.0FxO/BTk76klW")
-        .roles("USER", "ADMIN")
-        .build();
-    return new InMemoryUserDetailsManager(user, admin);
-  }
-  */
 
     @Bean
     AuthenticationManager authenticationManager(AuthenticationConfiguration

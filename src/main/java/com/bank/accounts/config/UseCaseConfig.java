@@ -23,6 +23,7 @@ import com.bank.report.services.ReportService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Configuration
 public class UseCaseConfig {
@@ -34,9 +35,9 @@ public class UseCaseConfig {
 
     @Bean("clientServicePrimary")
     @Primary
-    public ClientService clientService(ClientRepository clientRepository) {
+    public ClientService clientService(ClientRepository clientRepository, BCryptPasswordEncoder passwordEncoder) {
         return new ClientService(
-                new ClientUseCaseImp(clientRepository)
+                new ClientUseCaseImp(clientRepository, passwordEncoder)
         );
     }
 

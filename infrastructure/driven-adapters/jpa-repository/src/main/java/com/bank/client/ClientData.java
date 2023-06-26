@@ -18,13 +18,14 @@ public class ClientData {
     private Long id;
     @Column("clientId")
     private Long clientId;
-    private String password;
-    private String state;
+    @Column("fullName")
+    private String fullName;
+    private Long identification;
     private String address;
     @Column("cellPhone")
     private Long cellPhone;
     private String gender;
-    private Long identification;
-    @Column("fullName")
-    private String fullName;
+    private String password;
+    private String role;
+    private String state;
 }

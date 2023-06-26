@@ -18,8 +18,8 @@ public class ClientService implements ClientUseCase {
     }
 
     @Override
-    public Mono<Client> getClientById(Long id) {
-        return clientUseCase.getClientById(id);
+    public Mono<Client> getClientByClientId(Long id) {
+        return clientUseCase.getClientByClientId(id);
     }
 
     @Override
