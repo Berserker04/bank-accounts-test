@@ -23,4 +23,6 @@ public class AccountData {
     @Column("initialBalance")
     private double initialBalance;
     private String state;
+    @Column("client_id")
+    private Long clientId;
 }

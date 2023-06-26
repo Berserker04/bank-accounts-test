@@ -5,7 +5,7 @@ import reactor.core.publisher.Mono;
 
 public interface AccountRepository {
     Mono<Account> save(Account account);
-    Mono<Account> findById(Long id);
-    Mono<Account> update(Account account);
-    Mono<Boolean> deleteById(Long id);
+    Mono<Account> findByAccountNumber(Long accountNumber);
+    Mono<Account> updateBalance(Account account);
+    Mono<Boolean> deleteAccount(Long accountNumber);
 }

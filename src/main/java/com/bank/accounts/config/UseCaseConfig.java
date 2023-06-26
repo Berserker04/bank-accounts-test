@@ -54,9 +54,9 @@ public class UseCaseConfig {
 
     @Bean("accountServicePrimary")
     @Primary
-    public AccountService accountService(AccountRepository accountRepository) {
+    public AccountService accountService(AccountRepository accountRepository, ClientRepository clientRepository) {
         return new AccountService(
-                new AccountUseCaseImp(accountRepository)
+                new AccountUseCaseImp(accountRepository, clientRepository)
         );
     }
 

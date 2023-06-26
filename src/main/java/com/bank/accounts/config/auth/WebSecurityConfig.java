@@ -40,7 +40,7 @@ public class WebSecurityConfig {
                     .requestMatchers(HttpMethod.PATCH,"/api/v1/clients").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.DELETE,"/api/v1/clients/{clientId}").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.POST, "/api/v1/accounts").hasRole("ADMIN")
-                    .requestMatchers(HttpMethod.GET,"/api/v1/accounts/{clienId}").authenticated()
+                    .requestMatchers(HttpMethod.GET,"/api/v1/accounts/{accountNumber}").authenticated()
                     .requestMatchers(HttpMethod.DELETE,"/api/v1/accounts").hasRole("ADMIN")
                     .anyRequest().authenticated()
             )

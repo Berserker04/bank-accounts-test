@@ -15,6 +15,7 @@ public class AccountMapper {
                 .accountType(account.getAccountType().getValue())
                 .initialBalance(account.getInitialBalance().getValue())
                 .state(account.getState().getValue())
+                .clientId(account.getClientId().getValue())
                 .build());
     }
 
@@ -24,6 +25,7 @@ public class AccountMapper {
                 .accountType(account.getAccountType().getValue())
                 .initialBalance(account.getInitialBalance().getValue())
                 .state(account.getState().getValue())
+                .clientId(account.getClientId().getValue())
                 .build());
     }
 
@@ -33,7 +35,8 @@ public class AccountMapper {
                 new AccountNumber(accountData.getAccountNumber()),
                 new AccountType(accountData.getAccountType()),
                 new InitialBalance(accountData.getInitialBalance()),
-                new State(accountData.getState())
+                new State(accountData.getState()),
+                new Id(accountData.getClientId())
         );
     }
 }

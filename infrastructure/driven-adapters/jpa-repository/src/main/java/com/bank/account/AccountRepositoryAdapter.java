@@ -21,13 +21,13 @@ public class AccountRepositoryAdapter implements AccountRepository {
     }
 
     @Override
-    public Mono<Account> findById(Long id) {
-        return repository.findById(id)
+    public Mono<Account> findByAccountNumber(Long accountNumber) {
+        return repository.findByAccountNumber(accountNumber)
                 .map(mapper::toDomainModel);
     }
 
     @Override
-    public Mono<Account> update(Account account) {
+    public Mono<Account> updateBalance(Account account) {
         return repository.existsById(account.getId().getValue())
                 .flatMap(exists -> {
                     if(exists){
@@ -41,11 +41,11 @@ public class AccountRepositoryAdapter implements AccountRepository {
     }
 
     @Override
-    public Mono<Boolean> deleteById(Long id) {
-        return repository.existsById(id)
-                .flatMap(exists -> {
-                    if(exists){
-                        repository.deleteById(id).subscribe();
+    public Mono<Boolean> deleteAccount(Long accountNumber) {
+        return repository.findByAccountNumber(accountNumber)
+                .flatMap(account -> {
+                    if(account != null){
+                        repository.deleteAccount(accountNumber).subscribe();
                         return Mono.just(true);
                     }
                     return Mono.just(false);

@@ -14,13 +14,13 @@ public class AccountService implements AccountUseCase {
     }
 
     @Override
-    public Mono<Account> getAccountById(Long id) {
-        return accountUseCase.getAccountById(id);
+    public Mono<Account> getAccountByAccountNumber(Long accountNumber) {
+        return accountUseCase.getAccountByAccountNumber(accountNumber);
     }
 
     @Override
-    public Mono<Account> updateAccount(Account account) {
-        return accountUseCase.updateAccount(account);
+    public Mono<Account> uptateBalance(Account account) {
+        return accountUseCase.uptateBalance(account);
     }
 
     @Override

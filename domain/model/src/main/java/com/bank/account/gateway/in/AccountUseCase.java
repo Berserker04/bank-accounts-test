@@ -5,7 +5,7 @@ import reactor.core.publisher.Mono;
 
 public interface AccountUseCase {
     Mono<Account> createAccount(Account account);
-    Mono<Account> getAccountById(Long id);
-    Mono<Account> updateAccount(Account account);
+    Mono<Account> getAccountByAccountNumber(Long accountNumber);
+    Mono<Account> uptateBalance(Account account);
     Mono<Boolean> deleteAccount(Long id);
 }

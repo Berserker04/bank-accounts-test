@@ -16,12 +16,14 @@ public class Account {
     private AccountType accountType;
     private InitialBalance initialBalance;
     private State state;
+    private Id clientId;
 
-    public Account(Id id, AccountNumber accountNumber, AccountType accountType, InitialBalance initialBalance, State state) {
+    public Account(Id id, AccountNumber accountNumber, AccountType accountType, InitialBalance initialBalance, State state, Id clientId) {
         this.id = id;
         this.accountNumber = accountNumber;
         this.accountType = accountType;
         this.initialBalance = initialBalance;
         this.state = state;
+        this.clientId = clientId;
     }
 }
