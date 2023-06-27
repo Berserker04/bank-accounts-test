@@ -12,10 +12,9 @@ import java.time.LocalDate;
 public class ReportRepositoryAdapter implements ReportRepository {
     private final ReportMapper mapper;
     private final ReportDataRepository repository;
-
     @Override
     public Flux<Report> getReportByDate(Long idClient, LocalDate date, String accountStatus) {
-        return repository.getMovements(idClient, date, accountStatus)
+        return repository.getMovements(date, idClient, accountStatus)
                 .map(mapper::toDomainModel);
     }
 }

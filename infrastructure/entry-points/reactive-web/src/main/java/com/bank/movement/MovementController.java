@@ -19,7 +19,6 @@ import java.util.stream.Collectors;
 public class MovementController {
     private final MovementMapper mapper;
     private final MovementService movementService;
-
     private static final Logger logger = LoggerFactory.getLogger(MovementController.class);
     @PostMapping()
     public ResponseEntity<?> createMovement(@RequestBody Movement movement) {

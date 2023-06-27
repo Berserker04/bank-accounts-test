@@ -11,8 +11,6 @@ import com.bank.person.properties.FullName;
 import reactor.core.publisher.Mono;
 
 public class ReportMapper {
-
-
     public final Mono<ReportData> toEntityData(Report report) {
         return Mono.just(ReportData.builder()
                 .date(report.getDate().getValue())
