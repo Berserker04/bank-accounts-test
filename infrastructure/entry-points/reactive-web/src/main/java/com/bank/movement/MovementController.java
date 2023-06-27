@@ -50,6 +50,9 @@ public class MovementController {
 
             if(result.size() == 0) return ResponseHandler.success("Movements not found");
             return ResponseHandler.success("Success", result);
+        }catch (IllegalArgumentException e){
+            logger.info(e.getMessage());
+            return ResponseHandler.success(e.getMessage());
         }catch (Exception e){
             logger.info(e.getMessage());
             return ResponseHandler.error("Internal server error");
@@ -67,6 +70,9 @@ public class MovementController {
 
             if(result == null) return ResponseHandler.success("Movements not found");
             return ResponseHandler.success("Success", result);
+        }catch (IllegalArgumentException e){
+            logger.info(e.getMessage());
+            return ResponseHandler.success(e.getMessage());
         }catch (Exception e){
             logger.info(e.getMessage());
             return ResponseHandler.error("Internal server error");

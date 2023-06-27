@@ -24,7 +24,7 @@ public class ReportController {
 
     @GetMapping()
     public ResponseEntity<?> getReports(@RequestParam("date") String date, @RequestBody ReportByDate reportByDate) {
-        logger.info("Report: consulting the client's movements {}", reportByDate.getIdClient());
+        logger.info("Report: consulting the client's movements {}", reportByDate.getIdClient().getValue());
         try {
             SecurityContextHolder.getContext().getAuthentication();
 
@@ -34,6 +34,9 @@ public class ReportController {
 
             if(result.size() == 0) return ResponseHandler.success("Movements not found");
             return ResponseHandler.success("Success", result);
+        }catch (IllegalArgumentException e){
+            logger.info(e.getMessage());
+            return ResponseHandler.success(e.getMessage());
         }catch (Exception e){
             logger.info(e.getMessage());
             return ResponseHandler.error("Internal server error");

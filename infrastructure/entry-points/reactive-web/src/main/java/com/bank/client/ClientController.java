@@ -28,6 +28,9 @@ public class ClientController {
 
             if(result == null) return ResponseHandler.success( "Can't register client");
             return ResponseHandler.success("Success", mapper.toEntityData(result).block(), HttpStatus.CREATED);
+        }catch (IllegalArgumentException e){
+            logger.info(e.getMessage());
+            return ResponseHandler.success(e.getMessage());
         }catch (Exception e){
             logger.info(e.getMessage());
             return ResponseHandler.error("Internal server error");
@@ -43,6 +46,9 @@ public class ClientController {
 
             if(result == null) return ResponseHandler.success( "Client not found");
             return ResponseHandler.success("Success", mapper.toEntityData(result).block());
+        }catch (IllegalArgumentException e){
+            logger.info(e.getMessage());
+            return ResponseHandler.success(e.getMessage());
         }catch (Exception e){
             logger.info(e.getMessage());
             return ResponseHandler.error("Internal server error");
@@ -58,6 +64,9 @@ public class ClientController {
 
             if(result == null) return ResponseHandler.success( "Could not update client");
             return ResponseHandler.success("Success", mapper.toEntityData(result).block());
+        }catch (IllegalArgumentException e){
+            logger.info(e.getMessage());
+            return ResponseHandler.success(e.getMessage());
         }catch (Exception e){
             logger.info(e.getMessage());
             return ResponseHandler.error("Internal server error");
@@ -74,6 +83,9 @@ public class ClientController {
 
             if(!result) return ResponseHandler.success( "Can't delete client");
             return ResponseHandler.success("Success");
+        }catch (IllegalArgumentException e){
+            logger.info(e.getMessage());
+            return ResponseHandler.success(e.getMessage());
         }catch (Exception e){
             logger.info(e.getMessage());
             return ResponseHandler.error("Internal server error");

@@ -29,7 +29,7 @@ public class ValidateData {
             createException(fieldName);
         }
         if(value.isAfter(LocalDate.now())){
-            throw new IllegalArgumentException("La fecha " + fieldName + " no puede ser mayor a la fecha actual");
+            throw new IllegalArgumentException("La fecha " + value + " no puede ser mayor a la fecha actual");
         }
         return true;
     }

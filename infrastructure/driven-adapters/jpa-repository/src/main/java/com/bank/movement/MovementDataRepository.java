@@ -18,12 +18,11 @@ public interface MovementDataRepository extends ReactiveCrudRepository<MovementD
     Flux<MovementData> findByClientId(Long idClient);
 
 
-    @Query("SELECT m.id, m.date, m.movementType, SUM(m.value) as value, m.balance, m.account_id FROM movements m WHERE m.account_id = :? AND m.date = :? AND m.movementType = 'Retiro'")
+    @Query("SELECT m.id, m.date, m.movementType, SUM(m.value) as value, m.balance, m.account_id " +
+            "FROM movements m " +
+            "WHERE m.account_id = :? " +
+            "AND m.date = :? " +
+            "AND m.movementType = 'Retiro'")
     Mono<MovementData> findBytBalanceCurrentDay(Long idClient, LocalDate cunrrenDay);
 
-    /*
-
-
-
-     */
 }

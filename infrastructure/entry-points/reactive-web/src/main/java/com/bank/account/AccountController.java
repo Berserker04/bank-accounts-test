@@ -28,6 +28,9 @@ public class AccountController {
 
             if(result == null) return ResponseHandler.success( "Can't register account");
             return ResponseHandler.success("Success", mapper.toEntityData(result).block(), HttpStatus.CREATED);
+        }catch (IllegalArgumentException e){
+            logger.info(e.getMessage());
+            return ResponseHandler.success(e.getMessage());
         }catch (Exception e){
             logger.info(e.getMessage());
             return ResponseHandler.error("Internal server error");
@@ -43,6 +46,9 @@ public class AccountController {
 
             if(result == null) return ResponseHandler.success( "account not found");
             return ResponseHandler.success("Success", mapper.toEntityData(result).block());
+        }catch (IllegalArgumentException e){
+            logger.info(e.getMessage());
+            return ResponseHandler.success(e.getMessage());
         }catch (Exception e){
             logger.info(e.getMessage());
             return ResponseHandler.error("Internal server error");
@@ -59,6 +65,9 @@ public class AccountController {
 
             if(!result) return ResponseHandler.success( "Could not delete account");
             return ResponseHandler.success("Success");
+        }catch (IllegalArgumentException e){
+            logger.info(e.getMessage());
+            return ResponseHandler.success(e.getMessage());
         }catch (Exception e){
             logger.info(e.getMessage());
             return ResponseHandler.error("Internal server error");
