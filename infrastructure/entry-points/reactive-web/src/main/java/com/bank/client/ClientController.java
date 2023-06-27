@@ -20,12 +20,13 @@ public class ClientController {
 
     @PostMapping()
     public ResponseEntity<?> createClient(@RequestBody Client client) {
+        logger.info("Client: creating new client");
         try {
             SecurityContextHolder.getContext().getAuthentication();
 
             Client result = clientService.createClient(client).block();
 
-            if(result == null) return ResponseHandler.success("No se puedo registrar el client");
+            if(result == null) return ResponseHandler.success("Can't register client", HttpStatus.NO_CONTENT);
             return ResponseHandler.success("Success", mapper.toEntityData(result).block(), HttpStatus.CREATED);
         }catch (Exception e){
             logger.info(e.getMessage());
@@ -40,7 +41,7 @@ public class ClientController {
 
             Client result = clientService.getClientByClientId(clientId).block();
 
-            if(result == null) return ResponseHandler.success("Client no registrado");
+            if(result == null) return ResponseHandler.success("Client not found", HttpStatus.NO_CONTENT);
             return ResponseHandler.success("Success", mapper.toEntityData(result).block());
         }catch (Exception e){
             logger.info(e.getMessage());
@@ -55,7 +56,7 @@ public class ClientController {
 
             Client result = clientService.updateClient(client).block();
 
-            if(result == null) return ResponseHandler.success("No se puedo actualizar el cliente");
+            if(result == null) return ResponseHandler.success("Could not update client", HttpStatus.NO_CONTENT);
             return ResponseHandler.success("Success", mapper.toEntityData(result).block());
         }catch (Exception e){
             logger.info(e.getMessage());
@@ -65,12 +66,13 @@ public class ClientController {
 
     @DeleteMapping("/{clientId}")
     public ResponseEntity<?> deleteClient(@PathVariable Long clientId) {
+        logger.info("Client: deleting client {}", clientId);
         try {
             SecurityContextHolder.getContext().getAuthentication();
 
             Boolean result = clientService.deleteClient(clientId).block();
 
-            if(!result) return ResponseHandler.success("No se puedo eliminar el cliente");
+            if(!result) return ResponseHandler.success("Can't delete client", HttpStatus.NO_CONTENT);
             return ResponseHandler.success("Success");
         }catch (Exception e){
             logger.info(e.getMessage());

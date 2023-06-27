@@ -35,10 +35,8 @@ public class WebSecurityConfig {
         http.csrf(csrfConfig -> csrfConfig.disable())
             .authorizeHttpRequests((authorize) -> authorize
                     .requestMatchers("/api/v1/health/**").permitAll()
-                    .requestMatchers("/public/**").permitAll()
                     .requestMatchers("/api/v1/auth/**").permitAll()
                     .requestMatchers("/api/v1/reports/**").authenticated()
-                    .requestMatchers("/admin/**").hasRole("ADMIN")
 
                     .requestMatchers(HttpMethod.POST, "/api/v1/clients").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.GET,"/api/v1/clients/{clientId}").authenticated()
@@ -47,7 +45,7 @@ public class WebSecurityConfig {
 
                     .requestMatchers(HttpMethod.POST, "/api/v1/accounts").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.GET,"/api/v1/accounts/{accountNumber}").authenticated()
-                    .requestMatchers(HttpMethod.DELETE,"/api/v1/accounts").hasRole("ADMIN")
+                    .requestMatchers(HttpMethod.DELETE,"/api/v1/accounts/{accountNumber}").hasRole("ADMIN")
 
                     .requestMatchers(HttpMethod.POST, "/api/v1/movements").authenticated()
                     .requestMatchers(HttpMethod.GET,"/api/v1/movements/{clientId}").authenticated()

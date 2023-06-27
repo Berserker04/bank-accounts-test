@@ -24,6 +24,10 @@ public class ResponseHandler {
         return generateResponse(HttpStatus.OK, message, data);
     }
 
+    public static <T> ResponseEntity<?> success(String message, HttpStatus status) {
+        return generateResponse(status, message, null);
+    }
+
     public static ResponseEntity<?> success(String message) {
         return success(message, null);
     }

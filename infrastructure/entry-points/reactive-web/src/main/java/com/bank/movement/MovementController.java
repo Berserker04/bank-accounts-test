@@ -22,12 +22,13 @@ public class MovementController {
     private static final Logger logger = LoggerFactory.getLogger(MovementController.class);
     @PostMapping()
     public ResponseEntity<?> createMovement(@RequestBody Movement movement) {
+        logger.info("Movement: creating new movement");
         try {
             SecurityContextHolder.getContext().getAuthentication();
 
             Movement result = movementService.createMovement(movement).block();
 
-            if(result == null) return ResponseHandler.success("No se puedo registrar el movimiento");
+            if(result == null) return ResponseHandler.success("Can't register movement", HttpStatus.NO_CONTENT);
             return ResponseHandler.success("Success", mapper.toEntityData(result).block(), HttpStatus.CREATED);
         }catch (Exception e){
             logger.info(e.getMessage());
@@ -44,7 +45,7 @@ public class MovementController {
                     .flatMap(movement -> mapper.toEntityData(movement))
                     .collect(Collectors.toList()).block();
 
-            if(result.size() == 0) return ResponseHandler.success("No se encontraron movimietos");
+            if(result.size() == 0) return ResponseHandler.success("Movements not found", HttpStatus.NO_CONTENT);
             return ResponseHandler.success("Success", result);
         }catch (Exception e){
             logger.info(e.getMessage());
@@ -61,7 +62,7 @@ public class MovementController {
                     .flatMap(movement -> mapper.toEntityData(movement))
                     .collect(Collectors.toList()).block();
 
-            if(result == null) return ResponseHandler.success("Movimientos no encotrados");
+            if(result == null) return ResponseHandler.success("Movements not found", HttpStatus.NO_CONTENT);
             return ResponseHandler.success("Success", result);
         }catch (Exception e){
             logger.info(e.getMessage());

@@ -30,8 +30,6 @@ public class AuthController {
 
     @PostMapping("/authenticate")
     public ResponseEntity<?> authenticate(@RequestBody AuthenticationReq authenticationReq) {
-        logger.info("Autenticando al client {}", authenticationReq.getClientId());
-
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(authenticationReq.getClientId(),
                         authenticationReq.getPassword()));
@@ -41,15 +39,7 @@ public class AuthController {
 
         final String jwt = jwtUtilService.generateToken(userDetails);
 
+        logger.info("Auth: client {} authenticated", authenticationReq.getClientId());
         return ResponseHandler.success("Success", new TokenInfo(jwt));
     }
-
-
-//    @PostMapping("/logout")
-//    public ResponseEntity<?> logout() {
-//        var auth =  SecurityContextHolder.getContext().getAuthentication();
-//        Map<String, String> mensaje = new HashMap<>();
-//        mensaje.put("data", "Logout");
-//        return ResponseEntity.ok(mensaje);
-//    }
 }

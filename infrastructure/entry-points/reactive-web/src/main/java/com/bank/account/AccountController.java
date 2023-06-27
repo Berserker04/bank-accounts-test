@@ -20,12 +20,13 @@ public class AccountController {
     private static final Logger logger = LoggerFactory.getLogger(AccountController.class);
     @PostMapping()
     public ResponseEntity<?> createAccount(@RequestBody Account account) {
+        logger.info("Account: creating new account");
         try {
             SecurityContextHolder.getContext().getAuthentication();
 
             Account result = accountService.createAccount(account).block();
 
-            if(result == null) return ResponseHandler.success("No se puedo registrar la cuenta");
+            if(result == null) return ResponseHandler.success("Can't register account", HttpStatus.NO_CONTENT);
             return ResponseHandler.success("Success", mapper.toEntityData(result).block(), HttpStatus.CREATED);
         }catch (Exception e){
             logger.info(e.getMessage());
@@ -40,7 +41,7 @@ public class AccountController {
 
             Account result = accountService.getAccountByAccountNumber(accountNumber).block();
 
-            if(result == null) return ResponseHandler.success("Cuenta no registrada");
+            if(result == null) return ResponseHandler.success("account not found", HttpStatus.NO_CONTENT);
             return ResponseHandler.success("Success", mapper.toEntityData(result).block());
         }catch (Exception e){
             logger.info(e.getMessage());
@@ -48,14 +49,15 @@ public class AccountController {
         }
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteAccount(@PathVariable Long id) {
+    @DeleteMapping("/{accountNumber}")
+    public ResponseEntity<?> deleteAccount(@PathVariable Long accountNumber) {
+        logger.info("Account: deleting account {}", accountNumber);
         try {
             SecurityContextHolder.getContext().getAuthentication();
 
-            boolean result = accountService.deleteAccount(id).block();
+            boolean result = accountService.deleteAccount(accountNumber).block();
 
-            if(!result) return ResponseHandler.success("No se pudo eliminar la cuenta");
+            if(!result) return ResponseHandler.success("Could not delete account", HttpStatus.NO_CONTENT);
             return ResponseHandler.success("Success");
         }catch (Exception e){
             logger.info(e.getMessage());
