@@ -1,4 +1,4 @@
-package com.bank.auth.service;
+package com.bank.auth.interfaces;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -16,14 +16,12 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException ex) throws IOException {
         response.setStatus(HttpServletResponse.SC_FORBIDDEN);
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-
         String message = "Acceso denegado. No tienes permiso para acceder a este recurso.";
         String body = "{" +
                 "\"data\": null," +
                 "\"message\": \"" + message + "\"," +
                 "\"status\": " + HttpServletResponse.SC_FORBIDDEN + "," +
                 "}";
-
         response.getWriter().write(body);
     }
 }

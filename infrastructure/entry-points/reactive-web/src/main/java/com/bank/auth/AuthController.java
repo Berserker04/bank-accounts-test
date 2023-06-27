@@ -1,7 +1,7 @@
 package com.bank.auth;
 
 import com.bank.auth.service.JwtUtilService;
-import com.bank.auth.service.ResponseHandler;
+import com.bank.http.ResponseHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

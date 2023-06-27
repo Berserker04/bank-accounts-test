@@ -1,7 +1,7 @@
 package com.bank.accounts.config.auth;
 
 import com.bank.auth.filter.JwtRequestFilter;
-import com.bank.auth.service.CustomAccessDeniedHandler;
+import com.bank.auth.interfaces.CustomAccessDeniedHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -26,10 +27,14 @@ public class WebSecurityConfig {
     @Autowired
     private CustomAccessDeniedHandler accessDeniedHandler;
 
+    @Autowired
+    AuthenticationEntryPoint CustomAuthenticationEntryPoint;
+
     @Bean
     SecurityFilterChain web(HttpSecurity http) throws Exception {
         http.csrf(csrfConfig -> csrfConfig.disable())
             .authorizeHttpRequests((authorize) -> authorize
+                    .requestMatchers("/api/v1/health/**").permitAll()
                     .requestMatchers("/public/**").permitAll()
                     .requestMatchers("/api/v1/auth/**").permitAll()
                     .requestMatchers("/api/v1/reports/**").authenticated()
@@ -55,9 +60,7 @@ public class WebSecurityConfig {
             .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling(exceptionConfig -> exceptionConfig
                         .accessDeniedHandler(accessDeniedHandler)
-//                        .authenticationEntryPoint((request, response, authException) -> {
-//
-//                        })
+                        .authenticationEntryPoint(CustomAuthenticationEntryPoint)
                 )
             .sessionManagement((session) -> session
                     .sessionCreationPolicy(SessionCreationPolicy.STATELESS)

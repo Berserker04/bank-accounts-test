@@ -1,7 +1,7 @@
 package com.bank.account;
 
 import com.bank.account.services.AccountService;
-import com.bank.auth.service.ResponseHandler;
+import com.bank.http.ResponseHandler;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

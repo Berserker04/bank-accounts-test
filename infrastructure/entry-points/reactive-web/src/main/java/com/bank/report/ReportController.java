@@ -1,6 +1,6 @@
 package com.bank.report;
 
-import com.bank.auth.service.ResponseHandler;
+import com.bank.http.ResponseHandler;
 import com.bank.movement.MovementController;
 import com.bank.report.enpointbody.ReportByDate;
 import com.bank.report.services.ReportService;

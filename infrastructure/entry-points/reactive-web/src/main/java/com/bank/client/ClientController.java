@@ -1,6 +1,6 @@
 package com.bank.client;
 
-import com.bank.auth.service.ResponseHandler;
+import com.bank.http.ResponseHandler;
 import com.bank.client.services.ClientService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;

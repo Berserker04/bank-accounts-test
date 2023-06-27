@@ -1,4 +1,4 @@
-package com.bank.auth.service;
+package com.bank.http;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

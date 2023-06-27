@@ -1,6 +1,6 @@
 package com.bank.movement;
 
-import com.bank.auth.service.ResponseHandler;
+import com.bank.http.ResponseHandler;
 import com.bank.movement.services.MovementService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;

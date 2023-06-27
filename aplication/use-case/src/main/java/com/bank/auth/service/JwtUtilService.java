@@ -3,6 +3,8 @@ package com.bank.auth.service;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -19,6 +21,7 @@ public class JwtUtilService {
     private static final String JWT_SECRET_KEY = "MUVFQTJCQkFCMzI0MzkyM0E5QjlGNTU2REMyNDlEQTdEMjUyMUNBODFDQkE4";
 
     public static final long JWT_TOKEN_VALIDITY = 1000 * 60 * 60 * (long) 8; // 8 Horas
+    private static final Logger logger = LoggerFactory.getLogger(JwtUtilService.class);
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
@@ -49,7 +52,6 @@ public class JwtUtilService {
     }
 
     private String createToken(Map<String, Object> claims, String subject) {
-
         return Jwts
                 .builder()
                 .setClaims(claims)
