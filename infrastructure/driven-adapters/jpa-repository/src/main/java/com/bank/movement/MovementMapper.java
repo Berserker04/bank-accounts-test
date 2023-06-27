@@ -15,6 +15,7 @@ public class MovementMapper {
                 .movementType(movement.getMovementType().getValue())
                 .value(movement.getValue().getValue())
                 .balance(movement.getBalance().getValue())
+                .accountId(movement.getAccountId().getValue())
                 .build());
     }
 
@@ -24,6 +25,7 @@ public class MovementMapper {
                 .movementType(movement.getMovementType().getValue())
                 .value(movement.getValue().getValue())
                 .balance(movement.getBalance().getValue())
+                .accountId(movement.getAccountId().getValue())
                 .build());
     }
 
@@ -33,7 +35,8 @@ public class MovementMapper {
                 new Date(movementData.getDate()),
                 new MovementType(movementData.getMovementType()),
                 new Value(movementData.getValue()),
-                new Balance(movementData.getBalance())
+                new Balance(movementData.getBalance()),
+                new Id(movementData.getAccountId())
         );
     }
 }

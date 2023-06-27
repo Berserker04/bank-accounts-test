@@ -25,4 +25,6 @@ public class MovementData {
     private String movementType;
     private double value;
     private double balance;
+    @Column("account_id")
+    private Long accountId;
 }

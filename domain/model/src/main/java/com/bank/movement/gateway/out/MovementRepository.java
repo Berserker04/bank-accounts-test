@@ -1,11 +1,12 @@
 package com.bank.movement.gateway.out;
 
 import com.bank.movement.Movement;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 public interface MovementRepository {
     Mono<Movement> save(Movement movement);
-    Mono<Movement> findById(Long id);
-    Mono<Movement> update(Movement movement);
+    Flux<Movement> getMovementByClientId(Long id);
+    Flux<Movement> getMovementAll();
     Mono<Boolean> deleteById(Long id);
 }

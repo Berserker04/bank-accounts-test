@@ -73,9 +73,9 @@ public class UseCaseConfig {
 
     @Bean("movementServicePrimary")
     @Primary
-    public MovementService movementService(MovementRepository movementRepository) {
+    public MovementService movementService(MovementRepository movementRepository, AccountRepository accountRepository) {
         return new MovementService(
-                new MovementUseCaseImp(movementRepository)
+                new MovementUseCaseImp(movementRepository, accountRepository)
         );
     }
 

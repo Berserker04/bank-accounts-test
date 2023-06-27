@@ -3,6 +3,7 @@ package com.bank.movement;
 import com.bank.movement.gateway.out.MovementRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Component
@@ -21,23 +22,14 @@ public class MovementRepositoryAdapter implements MovementRepository {
     }
 
     @Override
-    public Mono<Movement> findById(Long id) {
-        return repository.findById(id)
-                .map(mapper::toDomainModel);
+    public Flux<Movement> getMovementByClientId(Long clientId) {
+        return repository.findByClientId(clientId);
     }
 
     @Override
-    public Mono<Movement> update(Movement movement) {
-        return repository.existsById(movement.getId().getValue())
-                .flatMap(exists -> {
-                    if(exists){
-                        return Mono.just(movement)
-                                .flatMap(mapper::toEntityData)
-                                .flatMap(repository::save)
-                                .map(mapper::toDomainModel);
-                    }
-                    return Mono.empty();
-                });
+    public Flux<Movement> getMovementAll() {
+        return repository.findAll()
+                .map(mapper::toDomainModel);
     }
 
     @Override

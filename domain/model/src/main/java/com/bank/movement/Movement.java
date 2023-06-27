@@ -16,12 +16,14 @@ public class Movement {
     private MovementType movementType;
     private Value value;
     private Balance balance;
+    private Id accountId;
 
-    public Movement(Id id, Date date, MovementType movementType, Value value, Balance balance) {
+    public Movement(Id id, Date date, MovementType movementType, Value value, Balance balance, Id accountId) {
         this.id = id;
         this.date = date;
         this.movementType = movementType;
         this.value = value;
         this.balance = balance;
+        this.accountId = accountId;
     }
 }
