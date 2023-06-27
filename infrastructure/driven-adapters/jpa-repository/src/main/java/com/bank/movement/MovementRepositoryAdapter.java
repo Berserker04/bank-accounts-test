@@ -23,24 +23,13 @@ public class MovementRepositoryAdapter implements MovementRepository {
 
     @Override
     public Flux<Movement> getMovementByClientId(Long clientId) {
-        return repository.findByClientId(clientId);
+        return repository.findByClientId(clientId)
+                .map(mapper::toDomainModel);
     }
 
     @Override
     public Flux<Movement> getMovementAll() {
         return repository.findAll()
                 .map(mapper::toDomainModel);
-    }
-
-    @Override
-    public Mono<Boolean> deleteById(Long id) {
-        return repository.existsById(id)
-                .flatMap(exists -> {
-                    if(exists){
-                        repository.deleteById(id).subscribe();
-                        return Mono.just(true);
-                    }
-                    return Mono.just(false);
-                });
     }
 }

@@ -1,7 +1,6 @@
 package com.bank.account;
 
 import com.bank.account.services.AccountService;
-import com.bank.auth.DemoRest;
 import com.bank.auth.service.ResponseHandler;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -18,7 +17,7 @@ public class AccountController {
     private final AccountMapper mapper;
     private final AccountService accountService;
 
-    private static final Logger logger = LoggerFactory.getLogger(DemoRest.class);
+    private static final Logger logger = LoggerFactory.getLogger(AccountController.class);
     @PostMapping()
     public ResponseEntity<?> createAccount(@RequestBody Account account) {
         try {

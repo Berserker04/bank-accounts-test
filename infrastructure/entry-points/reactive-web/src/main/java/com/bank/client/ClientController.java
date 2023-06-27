@@ -1,6 +1,5 @@
 package com.bank.client;
 
-import com.bank.auth.DemoRest;
 import com.bank.auth.service.ResponseHandler;
 import com.bank.client.services.ClientService;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 public class ClientController {
     private final ClientMapper mapper;
     private final ClientService clientService;
-    private static final Logger logger = LoggerFactory.getLogger(DemoRest.class);
+    private static final Logger logger = LoggerFactory.getLogger(ClientController.class);
 
     @PostMapping()
     public ResponseEntity<?> createClient(@RequestBody Client client) {

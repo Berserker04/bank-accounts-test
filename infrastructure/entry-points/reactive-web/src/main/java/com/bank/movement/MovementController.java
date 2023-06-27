@@ -1,6 +1,5 @@
 package com.bank.movement;
 
-import com.bank.auth.DemoRest;
 import com.bank.auth.service.ResponseHandler;
 import com.bank.movement.services.MovementService;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +20,7 @@ public class MovementController {
     private final MovementMapper mapper;
     private final MovementService movementService;
 
-    private static final Logger logger = LoggerFactory.getLogger(DemoRest.class);
+    private static final Logger logger = LoggerFactory.getLogger(MovementController.class);
     @PostMapping()
     public ResponseEntity<?> createMovement(@RequestBody Movement movement) {
         try {
@@ -46,8 +45,8 @@ public class MovementController {
                     .flatMap(movement -> mapper.toEntityData(movement))
                     .collect(Collectors.toList()).block();
 
-            if(result.size() > 0) return ResponseHandler.success("No se encontraron movimietos");
-            return ResponseHandler.success("Success");
+            if(result.size() == 0) return ResponseHandler.success("No se encontraron movimietos");
+            return ResponseHandler.success("Success", result);
         }catch (Exception e){
             logger.info(e.getMessage());
             return ResponseHandler.error("Internal server error");
@@ -65,21 +64,6 @@ public class MovementController {
 
             if(result == null) return ResponseHandler.success("Movimientos no encotrados");
             return ResponseHandler.success("Success", result);
-        }catch (Exception e){
-            logger.info(e.getMessage());
-            return ResponseHandler.error("Internal server error");
-        }
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteMovement(@PathVariable Long id) {
-        try {
-            SecurityContextHolder.getContext().getAuthentication();
-
-            boolean result = movementService.deleteMovement(id).block();
-
-            if(!result) return ResponseHandler.success("No se puedo eliminar el movimiento");
-            return ResponseHandler.success("Success");
         }catch (Exception e){
             logger.info(e.getMessage());
             return ResponseHandler.error("Internal server error");

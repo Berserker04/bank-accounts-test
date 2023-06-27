@@ -13,8 +13,6 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.time.LocalDate;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 public class MovementUseCaseImp implements MovementUseCase {
@@ -42,14 +40,7 @@ public class MovementUseCaseImp implements MovementUseCase {
 
     @Override
     public Flux<Movement> getMovementAll() {
-        Flux<Movement> xd = movementRepository.getMovementAll();
-        List<Movement> xd2 = xd.collect(Collectors.toList()).block();
-        return xd;
-    }
-
-    @Override
-    public Mono<Boolean> deleteMovement(Long id) {
-        return movementRepository.deleteById(id);
+        return movementRepository.getMovementAll();
     }
 
     private InitialBalance getNewBalance(Account account, Movement movement){

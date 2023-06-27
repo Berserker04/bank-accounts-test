@@ -8,5 +8,4 @@ public interface MovementUseCase {
     Mono<Movement> createMovement(Movement movement);
     Flux<Movement> getMovementByClientId(Long clientId);
     Flux<Movement> getMovementAll();
-    Mono<Boolean> deleteMovement(Long id);
 }

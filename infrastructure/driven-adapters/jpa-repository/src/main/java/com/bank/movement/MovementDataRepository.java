@@ -12,5 +12,5 @@ public interface MovementDataRepository extends ReactiveCrudRepository<MovementD
             "INNER JOIN accounts a ON m.account_id = a.accountNumber\n" +
             "INNER JOIN clients c ON a.client_id = c.id\n" +
             "WHERE c.clientId = :?")
-    Flux<Movement> findByClientId(Long idClient);
+    Flux<MovementData> findByClientId(Long idClient);
 }

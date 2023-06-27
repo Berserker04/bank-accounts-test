@@ -26,7 +26,7 @@ public class AuthController {
 
     @Autowired
     private JwtUtilService jwtUtilService;
-    private static final Logger logger = LoggerFactory.getLogger(DemoRest.class);
+    private static final Logger logger = LoggerFactory.getLogger(AuthController.class);
 
     @PostMapping("/authenticate")
     public ResponseEntity<?> authenticate(@RequestBody AuthenticationReq authenticationReq) {

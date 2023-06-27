@@ -24,9 +24,4 @@ public class MovementService implements MovementUseCase {
     public Flux<Movement> getMovementAll() {
         return movementUseCase.getMovementAll();
     }
-
-    @Override
-    public Mono<Boolean> deleteMovement(Long id) {
-        return movementUseCase.deleteMovement(id);
-    }
 }

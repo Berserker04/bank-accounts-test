@@ -8,5 +8,4 @@ public interface MovementRepository {
     Mono<Movement> save(Movement movement);
     Flux<Movement> getMovementByClientId(Long id);
     Flux<Movement> getMovementAll();
-    Mono<Boolean> deleteById(Long id);
 }

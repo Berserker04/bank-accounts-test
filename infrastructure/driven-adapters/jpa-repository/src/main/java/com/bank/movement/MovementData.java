@@ -1,6 +1,5 @@
 package com.bank.movement;
 
-import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import lombok.Builder;
@@ -13,7 +12,6 @@ import java.time.LocalDate;
 
 @Data
 @Builder(toBuilder = true)
-@Entity
 @Table(name = "movements")
 public class MovementData {
     @Id
