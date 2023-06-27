@@ -1,0 +1,11 @@
+spring:
+  api_v1: "/api/v1"
+  r2dbc:
+    url: r2dbc:mariadb://localhost:3306/bank_accounts_test
+    username: root
+    password:
+    pool:
+      enabled: true
+
+  jwt:
+    secret: "MUVFQTJCQkFCMzI0MzkyM0E5QjlGNTU2REMyNDlEQTdEMjUyMUNBODFDQkE4"
