@@ -1,17 +1,5 @@
 spring:
-#  datasource:
-#    url: jdbc:mysql://localhost:3306/bank_accounts_test?useSSL=false&serverTimezone=UTC
-#    username: root
-#    password:
-#    driver-class-name: com.mysql.cj.jdbc.Driver
-#  jpa:
-#    database-platform: org.hibernate.dialect.MySQLDialect
-#    hibernate:
-#      ddl-auto: update
-#    properties:
-#      hibernate:
-#        format_sql: true
-#        show_sql: true
+  api_v1: "/api/v1"
   r2dbc:
     url: r2dbc:mariadb://localhost:3306/bank_accounts_test
     username: root
@@ -20,5 +8,4 @@ spring:
       enabled: true
 
   jwt:
-    # 1EEA2BBAB3243923A9B9F556DC249DA7D2521CA81CBA8
     secret: "MUVFQTJCQkFCMzI0MzkyM0E5QjlGNTU2REMyNDlEQTdEMjUyMUNBODFDQkE4"

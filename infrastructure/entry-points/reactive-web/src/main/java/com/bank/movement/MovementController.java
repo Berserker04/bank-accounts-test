@@ -28,8 +28,11 @@ public class MovementController {
 
             Movement result = movementService.createMovement(movement).block();
 
-            if(result == null) return ResponseHandler.success("Can't register movement", HttpStatus.NO_CONTENT);
+            if(result == null) return ResponseHandler.success("Can't register movement");
             return ResponseHandler.success("Success", mapper.toEntityData(result).block(), HttpStatus.CREATED);
+        }catch (IllegalArgumentException e){
+            logger.info(e.getMessage());
+            return ResponseHandler.success(e.getMessage());
         }catch (Exception e){
             logger.info(e.getMessage());
             return ResponseHandler.error("Internal server error");
@@ -45,7 +48,7 @@ public class MovementController {
                     .flatMap(movement -> mapper.toEntityData(movement))
                     .collect(Collectors.toList()).block();
 
-            if(result.size() == 0) return ResponseHandler.success("Movements not found", HttpStatus.NO_CONTENT);
+            if(result.size() == 0) return ResponseHandler.success("Movements not found");
             return ResponseHandler.success("Success", result);
         }catch (Exception e){
             logger.info(e.getMessage());
@@ -62,7 +65,7 @@ public class MovementController {
                     .flatMap(movement -> mapper.toEntityData(movement))
                     .collect(Collectors.toList()).block();
 
-            if(result == null) return ResponseHandler.success("Movements not found", HttpStatus.NO_CONTENT);
+            if(result == null) return ResponseHandler.success("Movements not found");
             return ResponseHandler.success("Success", result);
         }catch (Exception e){
             logger.info(e.getMessage());

@@ -7,7 +7,6 @@ import com.bank.report.services.ReportService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
@@ -33,7 +32,7 @@ public class ReportController {
                     .flatMap(movement -> mapper.toEntityData(movement))
                     .collect(Collectors.toList()).block();
 
-            if(result.size() == 0) return ResponseHandler.success("Movements not found", HttpStatus.NO_CONTENT);
+            if(result.size() == 0) return ResponseHandler.success("Movements not found");
             return ResponseHandler.success("Success", result);
         }catch (Exception e){
             logger.info(e.getMessage());

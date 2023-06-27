@@ -26,7 +26,7 @@ public class ClientController {
 
             Client result = clientService.createClient(client).block();
 
-            if(result == null) return ResponseHandler.success("Can't register client", HttpStatus.NO_CONTENT);
+            if(result == null) return ResponseHandler.success( "Can't register client");
             return ResponseHandler.success("Success", mapper.toEntityData(result).block(), HttpStatus.CREATED);
         }catch (Exception e){
             logger.info(e.getMessage());
@@ -41,7 +41,7 @@ public class ClientController {
 
             Client result = clientService.getClientByClientId(clientId).block();
 
-            if(result == null) return ResponseHandler.success("Client not found", HttpStatus.NO_CONTENT);
+            if(result == null) return ResponseHandler.success( "Client not found");
             return ResponseHandler.success("Success", mapper.toEntityData(result).block());
         }catch (Exception e){
             logger.info(e.getMessage());
@@ -56,7 +56,7 @@ public class ClientController {
 
             Client result = clientService.updateClient(client).block();
 
-            if(result == null) return ResponseHandler.success("Could not update client", HttpStatus.NO_CONTENT);
+            if(result == null) return ResponseHandler.success( "Could not update client");
             return ResponseHandler.success("Success", mapper.toEntityData(result).block());
         }catch (Exception e){
             logger.info(e.getMessage());
@@ -72,7 +72,7 @@ public class ClientController {
 
             Boolean result = clientService.deleteClient(clientId).block();
 
-            if(!result) return ResponseHandler.success("Can't delete client", HttpStatus.NO_CONTENT);
+            if(!result) return ResponseHandler.success( "Can't delete client");
             return ResponseHandler.success("Success");
         }catch (Exception e){
             logger.info(e.getMessage());

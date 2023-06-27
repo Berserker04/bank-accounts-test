@@ -6,6 +6,8 @@ import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.time.LocalDate;
+
 @Component
 @RequiredArgsConstructor
 public class MovementRepositoryAdapter implements MovementRepository {
@@ -30,6 +32,12 @@ public class MovementRepositoryAdapter implements MovementRepository {
     @Override
     public Flux<Movement> getMovementAll() {
         return repository.findAll()
+                .map(mapper::toDomainModel);
+    }
+
+    @Override
+    public Mono<Movement> getBalanceCurrentDay(Long accountId, LocalDate cunrrenDay) {
+        return repository.findBytBalanceCurrentDay(accountId, cunrrenDay)
                 .map(mapper::toDomainModel);
     }
 }

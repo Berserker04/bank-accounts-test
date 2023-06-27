@@ -26,7 +26,7 @@ public class AccountController {
 
             Account result = accountService.createAccount(account).block();
 
-            if(result == null) return ResponseHandler.success("Can't register account", HttpStatus.NO_CONTENT);
+            if(result == null) return ResponseHandler.success( "Can't register account");
             return ResponseHandler.success("Success", mapper.toEntityData(result).block(), HttpStatus.CREATED);
         }catch (Exception e){
             logger.info(e.getMessage());
@@ -41,7 +41,7 @@ public class AccountController {
 
             Account result = accountService.getAccountByAccountNumber(accountNumber).block();
 
-            if(result == null) return ResponseHandler.success("account not found", HttpStatus.NO_CONTENT);
+            if(result == null) return ResponseHandler.success( "account not found");
             return ResponseHandler.success("Success", mapper.toEntityData(result).block());
         }catch (Exception e){
             logger.info(e.getMessage());
@@ -57,7 +57,7 @@ public class AccountController {
 
             boolean result = accountService.deleteAccount(accountNumber).block();
 
-            if(!result) return ResponseHandler.success("Could not delete account", HttpStatus.NO_CONTENT);
+            if(!result) return ResponseHandler.success( "Could not delete account");
             return ResponseHandler.success("Success");
         }catch (Exception e){
             logger.info(e.getMessage());

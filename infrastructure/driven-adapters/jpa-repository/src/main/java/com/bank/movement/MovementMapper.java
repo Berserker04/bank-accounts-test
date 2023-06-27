@@ -1,6 +1,8 @@
 package com.bank.movement;
 
 import com.bank.commons.properties.Id;
+import com.bank.movement.dto.BalanceMoved;
+import com.bank.movement.othersdata.BalanceMovedData;
 import com.bank.movement.properties.Balance;
 import com.bank.movement.properties.Date;
 import com.bank.movement.properties.MovementType;
@@ -37,6 +39,12 @@ public class MovementMapper {
                 new Value(movementData.getValue()),
                 new Balance(movementData.getBalance()),
                 new Id(movementData.getAccountId())
+        );
+    }
+
+    public final BalanceMoved toDomainDto(BalanceMovedData balanceMovedData) {
+        return new BalanceMoved(
+                new Value(balanceMovedData.getBalanceMoved())
         );
     }
 }

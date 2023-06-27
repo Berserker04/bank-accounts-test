@@ -19,16 +19,26 @@ public class MovementUseCaseImp implements MovementUseCase {
     private final MovementRepository movementRepository;
     private final AccountRepository accountRepository;
 
-    private static final String MOVEMENT_TYPE_D = "Deposito";
+    private static final String MOVEMENT_TYPE_R = "Retiro";
+    private static final double MAX_LIMIT_FOR_DAY = 1000000;
 
     @Override
     public Mono<Movement> createMovement(Movement movement) {
         return accountRepository.findByAccountNumber(movement.getAccountId().getValue())
+            .flatMap(account ->  validateWithdrawalLimit(account,  movement))
             .map(account -> {
-                account.setInitialBalance(getNewBalance(account, movement));
+                InitialBalance initialBalance = getNewBalance(account, movement);
+
+                if(initialBalance.getValue() < 0){
+                    throw new IllegalArgumentException("Saldo insuficiente");
+                }
+
+                account.setInitialBalance(initialBalance);
                 accountRepository.updateBalance(account).subscribe();
+
                 movement.setAccountId(new Id(account.getId().getValue()));
                 movement.setDate(new Date(LocalDate.now()));
+
                 return movement;
             }).flatMap(movementRepository::save);
     }
@@ -45,13 +55,21 @@ public class MovementUseCaseImp implements MovementUseCase {
 
     private InitialBalance getNewBalance(Account account, Movement movement){
         double balance;
-
-        if(movement.getMovementType().getValue().equalsIgnoreCase(MOVEMENT_TYPE_D))
-            balance = account.getInitialBalance().getValue() + movement.getValue().getValue();
-        else
+        if(movement.getMovementType().getValue().equalsIgnoreCase(MOVEMENT_TYPE_R))
             balance = account.getInitialBalance().getValue() - movement.getValue().getValue();
-
+        else
+            balance = account.getInitialBalance().getValue() + movement.getValue().getValue();
         movement.setBalance(new Balance(balance));
         return new InitialBalance(balance);
+    }
+
+    private Mono<Account> validateWithdrawalLimit(Account account, Movement movement){
+        if(!movement.getMovementType().getValue().equalsIgnoreCase(MOVEMENT_TYPE_R)) return Mono.just(account);
+        return movementRepository.getBalanceCurrentDay(account.getId().getValue(), LocalDate.now())
+            .map(banlance -> {
+                if (banlance.getValue().getValue() + movement.getValue().getValue() > MAX_LIMIT_FOR_DAY)
+                    throw new IllegalArgumentException("Limite de movimientos por dia alcanzado");
+                return account;
+            } );
     }
 }
